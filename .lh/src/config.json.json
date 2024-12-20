@@ -1,0 +1,18 @@
+{
+    "sourceFile": "src/config.json",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1669618862253,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1669618862253,
+            "name": "Commit-0",
+            "content": "{\n\t\"port\": 8080,\n\t\"bodyLimit\": \"100000kb\",\n\t\"corsHeaders\": [\"Link\"],\n\t\"projectName\": \"nodejs63qva\",\n\t\"dbConnection\": {\n\t\t\"dbtype\": \"mysql\",\n\t\t\"database\": \"nodejs63qva\",\n\t\t\"username\": \"root\",\n\t\t\"password\": \"4536\"\n\t},\n\t\"sessionSecret\": \"xiezn\",\n\t\"jwtSecret\": \"xiezn\"\n}\n"
+        }
+    ]
+}
