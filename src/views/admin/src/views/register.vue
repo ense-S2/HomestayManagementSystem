@@ -306,7 +306,7 @@ export default {
 		background-position: center center;
 		background-size: cover;
 		background-repeat: no-repeat;
-    				background-image: url(../assets/img/bg.jpg);
+    				background-image: url(../assets/img/bg3.png);
 		    
 		.login-form {
 			right: 50%;
@@ -333,8 +333,8 @@ export default {
 				width: 100%;
 				height: auto;
 				line-height:auto;
-				color: rgba(104, 223, 240, 1);
-				font-size: 28px;
+				color: rgb(119, 59, 7);
+				font-size: 22px;
 				padding: 0;
 				margin: 0 auto;
 				border-radius: 0;
@@ -377,8 +377,9 @@ export default {
 					& /deep/ .el-form-item__label {
             width: 84px;
             line-height:44px;
-            color: rgba(104, 223, 240, 1);
-            font-size: #606266;
+            color: rgb(87, 40, 4);
+            font-size: 14px;
+			font-weight: bold;
             padding: 0 10px 0 0;
             margin: 0;
             border-radius: 0;
@@ -454,7 +455,7 @@ export default {
 					border-style: solid;
 					border-color: #409EFF;
 					border-radius: 4px;
-					background-color: rgba(104, 223, 240, 1);
+					background-color: rgb(99, 77, 3);
           box-shadow: 0 0 6px rgba(255,0,0,0);
 				}
 
@@ -470,7 +471,7 @@ export default {
           border-style: solid;
           border-color: #409EFF;
           border-radius: 4px;
-          background-color: rgba(104, 223, 240, 1);
+          background-color: rgb(99, 77, 3);
           box-shadow: 0 0 6px rgba(255,0,0,0);
 				}
 

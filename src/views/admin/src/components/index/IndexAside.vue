@@ -4,7 +4,7 @@
       <el-menu default-active="1">
         <el-menu-item @click="menuHandler('/')" index="1">
           <!-- <i class="el-icon-s-home"></i> -->
-          首页
+          首页2
         </el-menu-item>
         <sub-menu
           v-for="menu in menuList"
@@ -44,11 +44,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .index-aside {
-  margin-top: 80px;
+  margin-top: 200px;
   overflow: hidden;
   .index-aside-inner {
-    width: 217px;
-    height: 100%;
+    width: 400px;
+    height: 50%;
     overflow-y: scroll;
   }
 }

@@ -10,6 +10,7 @@ import XufangxinxiController from './Xufangxinxi'
 import HuanfangxinxiController from './Huanfangxinxi'
 import TuifangxinxiController from './Tuifangxinxi'
 import FeiyongxinxiController from './Feiyongxinxi'
+import XiaoshouqingkuangController from './Xiaoshouqingkuang';
 
 export default ({ config, db }) => {
 	let api = Router()
@@ -35,6 +36,8 @@ export default ({ config, db }) => {
 	api.use('/tuifangxinxi', TuifangxinxiController({ config, db }))
 
 	api.use('/feiyongxinxi', FeiyongxinxiController({ config, db }))
+
+	api.use('/xiaoshouqingkuang', XiaoshouqingkuangController);
 
 	return api
 }

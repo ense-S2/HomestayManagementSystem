@@ -3,146 +3,366 @@
     <!-- 列表页 -->
     <div v-if="showFlag">
       <el-form :inline="true" :model="searchForm" class="form-content">
-        <el-row  :gutter="20" class="slt" :style="{justifyContent:contents.searchBoxPosition=='1'?'flex-start':contents.searchBoxPosition=='2'?'center':'flex-end'}">
-                <el-form-item :label="contents.inputTitle == 1 ? '账号' : ''">
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.zhanghao" placeholder="账号" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.zhanghao" placeholder="账号" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.zhanghao" placeholder="账号" clearable></el-input>
-                </el-form-item>
-                <el-form-item :label="contents.inputTitle == 1 ? '姓名' : ''">
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1" prefix-icon="el-icon-search" v-model="searchForm.xingming" placeholder="姓名" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2" suffix-icon="el-icon-search" v-model="searchForm.xingming" placeholder="姓名" clearable></el-input>
-                  <el-input v-if="contents.inputIcon == 0" v-model="searchForm.xingming" placeholder="姓名" clearable></el-input>
-                </el-form-item>
+        <el-row
+          :gutter="20"
+          class="slt"
+          :style="{
+            justifyContent:
+              contents.searchBoxPosition == '1'
+                ? 'flex-start'
+                : contents.searchBoxPosition == '2'
+                ? 'center'
+                : 'flex-end',
+          }"
+        >
+          <el-form-item :label="contents.inputTitle == 1 ? '账号' : ''">
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1"
+              prefix-icon="el-icon-search"
+              v-model="searchForm.zhanghao"
+              placeholder="账号"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2"
+              suffix-icon="el-icon-search"
+              v-model="searchForm.zhanghao"
+              placeholder="账号"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 0"
+              v-model="searchForm.zhanghao"
+              placeholder="账号"
+              clearable
+            ></el-input>
+          </el-form-item>
+          <el-form-item :label="contents.inputTitle == 1 ? '姓名' : ''">
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 1"
+              prefix-icon="el-icon-search"
+              v-model="searchForm.xingming"
+              placeholder="姓名"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 1 && contents.inputIconPosition == 2"
+              suffix-icon="el-icon-search"
+              v-model="searchForm.xingming"
+              placeholder="姓名"
+              clearable
+            ></el-input>
+            <el-input
+              v-if="contents.inputIcon == 0"
+              v-model="searchForm.xingming"
+              placeholder="姓名"
+              clearable
+            ></el-input>
+          </el-form-item>
           <el-form-item>
-            <el-button v-if="contents.searchBtnIcon == 1 && contents.searchBtnIconPosition == 1" icon="el-icon-search" type="success" @click="search()">{{ contents.searchBtnFont == 1?'查询':'' }}</el-button>
-            <el-button v-if="contents.searchBtnIcon == 1 && contents.searchBtnIconPosition == 2" type="success" @click="search()">{{ contents.searchBtnFont == 1?'查询':'' }}<i class="el-icon-search el-icon--right"/></el-button>
-            <el-button v-if="contents.searchBtnIcon == 0" type="success" @click="search()">{{ contents.searchBtnFont == 1?'查询':'' }}</el-button>
+            <el-button
+              v-if="
+                contents.searchBtnIcon == 1 &&
+                contents.searchBtnIconPosition == 1
+              "
+              icon="el-icon-search"
+              type="success"
+              @click="search()"
+              >{{ contents.searchBtnFont == 1 ? "查询" : "" }}</el-button
+            >
+            <el-button
+              v-if="
+                contents.searchBtnIcon == 1 &&
+                contents.searchBtnIconPosition == 2
+              "
+              type="success"
+              @click="search()"
+              >{{ contents.searchBtnFont == 1 ? "查询" : ""
+              }}<i class="el-icon-search el-icon--right"
+            /></el-button>
+            <el-button
+              v-if="contents.searchBtnIcon == 0"
+              type="success"
+              @click="search()"
+              >{{ contents.searchBtnFont == 1 ? "查询" : "" }}</el-button
+            >
           </el-form-item>
         </el-row>
 
-        <el-row class="ad" :style="{justifyContent:contents.btnAdAllBoxPosition=='1'?'flex-start':contents.btnAdAllBoxPosition=='2'?'center':'flex-end'}">
+        <el-row
+          class="ad"
+          :style="{
+            justifyContent:
+              contents.btnAdAllBoxPosition == '1'
+                ? 'flex-start'
+                : contents.btnAdAllBoxPosition == '2'
+                ? 'center'
+                : 'flex-end',
+          }"
+        >
           <el-form-item>
             <el-button
-              v-if="isAuth('yonghu','新增') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 1"
+              v-if="
+                isAuth('yonghu', '新增') &&
+                contents.btnAdAllIcon == 1 &&
+                contents.btnAdAllIconPosition == 1
+              "
               type="success"
               icon="el-icon-plus"
               @click="addOrUpdateHandler()"
-            >{{ contents.btnAdAllFont == 1?'新增':'' }}</el-button>
+              >{{ contents.btnAdAllFont == 1 ? "新增" : "" }}</el-button
+            >
             <el-button
-              v-if="isAuth('yonghu','新增') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 2"
+              v-if="
+                isAuth('yonghu', '新增') &&
+                contents.btnAdAllIcon == 1 &&
+                contents.btnAdAllIconPosition == 2
+              "
               type="success"
               @click="addOrUpdateHandler()"
-            >{{ contents.btnAdAllFont == 1?'新增':'' }}<i class="el-icon-plus el-icon--right" /></el-button>
+              >{{ contents.btnAdAllFont == 1 ? "新增" : ""
+              }}<i class="el-icon-plus el-icon--right"
+            /></el-button>
             <el-button
-              v-if="isAuth('yonghu','新增') && contents.btnAdAllIcon == 0"
+              v-if="isAuth('yonghu', '新增') && contents.btnAdAllIcon == 0"
               type="success"
               @click="addOrUpdateHandler()"
-            >{{ contents.btnAdAllFont == 1?'新增':'' }}</el-button>
+              >{{ contents.btnAdAllFont == 1 ? "新增" : "" }}</el-button
+            >
             <el-button
-              v-if="isAuth('yonghu','删除') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 1 && contents.tableSelection"
+              v-if="
+                isAuth('yonghu', '删除') &&
+                contents.btnAdAllIcon == 1 &&
+                contents.btnAdAllIconPosition == 1 &&
+                contents.tableSelection
+              "
               :disabled="dataListSelections.length <= 0"
               type="danger"
               icon="el-icon-delete"
               @click="deleteHandler()"
-            >{{ contents.btnAdAllFont == 1?'删除':'' }}</el-button>
+              >{{ contents.btnAdAllFont == 1 ? "删除" : "" }}</el-button
+            >
             <el-button
-              v-if="isAuth('yonghu','删除') && contents.btnAdAllIcon == 1 && contents.btnAdAllIconPosition == 2 && contents.tableSelection"
+              v-if="
+                isAuth('yonghu', '删除') &&
+                contents.btnAdAllIcon == 1 &&
+                contents.btnAdAllIconPosition == 2 &&
+                contents.tableSelection
+              "
               :disabled="dataListSelections.length <= 0"
               type="danger"
               @click="deleteHandler()"
-            >{{ contents.btnAdAllFont == 1?'删除':'' }}<i class="el-icon-delete el-icon--right" /></el-button>
+              >{{ contents.btnAdAllFont == 1 ? "删除" : ""
+              }}<i class="el-icon-delete el-icon--right"
+            /></el-button>
             <el-button
-              v-if="isAuth('yonghu','删除') && contents.btnAdAllIcon == 0 && contents.tableSelection"
+              v-if="
+                isAuth('yonghu', '删除') &&
+                contents.btnAdAllIcon == 0 &&
+                contents.tableSelection
+              "
               :disabled="dataListSelections.length <= 0"
               type="danger"
               @click="deleteHandler()"
-            >{{ contents.btnAdAllFont == 1?'删除':'' }}</el-button>
-
-
-
-
-
+              >{{ contents.btnAdAllFont == 1 ? "删除" : "" }}</el-button
+            >
           </el-form-item>
         </el-row>
       </el-form>
       <div class="table-content">
-        <el-table class="tables" :size="contents.tableSize" :show-header="contents.tableShowHeader"
-            :header-row-style="headerRowStyle" :header-cell-style="headerCellStyle"
-            :border="contents.tableBorder"
-            :fit="contents.tableFit"
-            :stripe="contents.tableStripe"
-            :style="{width: '100%',fontSize:contents.tableContentFontSize,color:contents.tableContentFontColor}"
-            v-if="isAuth('yonghu','查看')"
-            :data="dataList"
-            v-loading="dataListLoading"
-            @selection-change="selectionChangeHandler">
-            <el-table-column  v-if="contents.tableSelection"
-                type="selection"
-                :header-align="contents.tableAlign"
-                align="center"
-                width="50">
-            </el-table-column>
-            <el-table-column label="索引" :align="contents.tableAlign"  v-if="contents.tableIndex" type="index" width="50" />
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="zhanghao"
-                   :header-align="contents.tableAlign"
-		    label="账号">
-		     <template slot-scope="scope">
-                       {{scope.row.zhanghao}}
-                     </template>
-                </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="xingming"
-                   :header-align="contents.tableAlign"
-		    label="姓名">
-		     <template slot-scope="scope">
-                       {{scope.row.xingming}}
-                     </template>
-                </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="xingbie"
-                   :header-align="contents.tableAlign"
-		    label="性别">
-		     <template slot-scope="scope">
-                       {{scope.row.xingbie}}
-                     </template>
-                </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="shouji"
-                   :header-align="contents.tableAlign"
-		    label="手机">
-		     <template slot-scope="scope">
-                       {{scope.row.shouji}}
-                     </template>
-                </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
-                    prop="shenfenzheng"
-                   :header-align="contents.tableAlign"
-		    label="身份证">
-		     <template slot-scope="scope">
-                       {{scope.row.shenfenzheng}}
-                     </template>
-                </el-table-column>
-            <el-table-column width="300" :align="contents.tableAlign" 
-               :header-align="contents.tableAlign"
-                label="操作">
-                <template slot-scope="scope">
-                <el-button v-if="isAuth('yonghu','查看') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 1" type="success" icon="el-icon-tickets" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">{{ contents.tableBtnFont == 1?'详情':'' }}</el-button>
-                <el-button v-if="isAuth('yonghu','查看') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 2" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">{{ contents.tableBtnFont == 1?'详情':'' }}<i class="el-icon-tickets el-icon--right" /></el-button>
-                <el-button v-if="isAuth('yonghu','查看') && contents.tableBtnIcon == 0" type="success" size="mini" @click="addOrUpdateHandler(scope.row.id,'info')">{{ contents.tableBtnFont == 1?'详情':'' }}</el-button>
-                <el-button v-if=" isAuth('yonghu','修改') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 1" type="primary" icon="el-icon-edit" size="mini" @click="addOrUpdateHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'修改':'' }}</el-button>
-                <el-button v-if=" isAuth('yonghu','修改') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 2" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'修改':'' }}<i class="el-icon-edit el-icon--right" /></el-button>
-                <el-button v-if=" isAuth('yonghu','修改') && contents.tableBtnIcon == 0" type="primary" size="mini" @click="addOrUpdateHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'修改':'' }}</el-button>
+        <el-table
+          class="tables"
+          :size="contents.tableSize"
+          :show-header="contents.tableShowHeader"
+          :header-row-style="headerRowStyle"
+          :header-cell-style="headerCellStyle"
+          :border="contents.tableBorder"
+          :fit="contents.tableFit"
+          :stripe="contents.tableStripe"
+          :style="{
+            width: '100%',
+            fontSize: contents.tableContentFontSize,
+            color: contents.tableContentFontColor,
+          }"
+          v-if="isAuth('yonghu', '查看')"
+          :data="dataList"
+          v-loading="dataListLoading"
+          @selection-change="selectionChangeHandler"
+        >
+          <el-table-column
+            v-if="contents.tableSelection"
+            type="selection"
+            :header-align="contents.tableAlign"
+            align="center"
+            width="50"
+          >
+          </el-table-column>
+          <el-table-column
+            label="索引"
+            :align="contents.tableAlign"
+            v-if="contents.tableIndex"
+            type="index"
+            width="50"
+          />
+          <el-table-column
+            :sortable="contents.tableSortable"
+            :align="contents.tableAlign"
+            prop="zhanghao"
+            :header-align="contents.tableAlign"
+            label="账号"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.zhanghao }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            :sortable="contents.tableSortable"
+            :align="contents.tableAlign"
+            prop="xingming"
+            :header-align="contents.tableAlign"
+            label="姓名"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.xingming }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            width="100"
+            :sortable="contents.tableSortable"
+            :align="contents.tableAlign"
+            prop="xingbie"
+            :header-align="contents.tableAlign"
+            label="性别"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.xingbie }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            :sortable="contents.tableSortable"
+            :align="contents.tableAlign"
+            prop="shouji"
+            :header-align="contents.tableAlign"
+            label="手机"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.shouji }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            :sortable="contents.tableSortable"
+            :align="contents.tableAlign"
+            prop="shenfenzheng"
+            :header-align="contents.tableAlign"
+            label="身份证"
+          >
+            <template slot-scope="scope">
+              {{ scope.row.shenfenzheng }}
+            </template>
+          </el-table-column>
+          <el-table-column
+            width="300"
+            :align="contents.tableAlign"
+            :header-align="contents.tableAlign"
+            label="操作"
+          >
+            <template slot-scope="scope">
+              <el-button
+                v-if="
+                  isAuth('yonghu', '查看') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 1
+                "
+                type="success"
+                icon="el-icon-tickets"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id, 'info')"
+                >{{ contents.tableBtnFont == 1 ? "详情" : "" }}</el-button
+              >
+              <el-button
+                v-if="
+                  isAuth('yonghu', '查看') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 2
+                "
+                type="success"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id, 'info')"
+                >{{ contents.tableBtnFont == 1 ? "详情" : ""
+                }}<i class="el-icon-tickets el-icon--right"
+              /></el-button>
+              <el-button
+                v-if="isAuth('yonghu', '查看') && contents.tableBtnIcon == 0"
+                type="success"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id, 'info')"
+                >{{ contents.tableBtnFont == 1 ? "详情" : "" }}</el-button
+              >
+              <el-button
+                v-if="
+                  isAuth('yonghu', '修改') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 1
+                "
+                type="primary"
+                icon="el-icon-edit"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "修改" : "" }}</el-button
+              >
+              <el-button
+                v-if="
+                  isAuth('yonghu', '修改') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 2
+                "
+                type="primary"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "修改" : ""
+                }}<i class="el-icon-edit el-icon--right"
+              /></el-button>
+              <el-button
+                v-if="isAuth('yonghu', '修改') && contents.tableBtnIcon == 0"
+                type="primary"
+                size="mini"
+                @click="addOrUpdateHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "修改" : "" }}</el-button
+              >
 
-
-
-
-                <el-button v-if="isAuth('yonghu','删除') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 1" type="danger" icon="el-icon-delete" size="mini" @click="deleteHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'删除':'' }}</el-button>
-                <el-button v-if="isAuth('yonghu','删除') && contents.tableBtnIcon == 1 && contents.tableBtnIconPosition == 2" type="danger" size="mini" @click="deleteHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'删除':'' }}<i class="el-icon-delete el-icon--right" /></el-button>
-                <el-button v-if="isAuth('yonghu','删除') && contents.tableBtnIcon == 0" type="danger" size="mini" @click="deleteHandler(scope.row.id)">{{ contents.tableBtnFont == 1?'删除':'' }}</el-button>
-                </template>
-            </el-table-column>
+              <el-button
+                v-if="
+                  isAuth('yonghu', '删除') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 1
+                "
+                type="danger"
+                icon="el-icon-delete"
+                size="mini"
+                @click="deleteHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "删除" : "" }}</el-button
+              >
+              <el-button
+                v-if="
+                  isAuth('yonghu', '删除') &&
+                  contents.tableBtnIcon == 1 &&
+                  contents.tableBtnIconPosition == 2
+                "
+                type="danger"
+                size="mini"
+                @click="deleteHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "删除" : ""
+                }}<i class="el-icon-delete el-icon--right"
+              /></el-button>
+              <el-button
+                v-if="isAuth('yonghu', '删除') && contents.tableBtnIcon == 0"
+                type="danger"
+                size="mini"
+                @click="deleteHandler(scope.row.id)"
+                >{{ contents.tableBtnFont == 1 ? "删除" : "" }}</el-button
+              >
+            </template>
+          </el-table-column>
         </el-table>
         <el-pagination
           clsss="pages"
@@ -156,29 +376,35 @@
           :small="contents.pageStyle"
           class="pagination-content"
           :background="contents.pageBtnBG"
-          :style="{textAlign:contents.pagePosition==1?'left':contents.pagePosition==2?'center':'right'}"
+          :style="{
+            textAlign:
+              contents.pagePosition == 1
+                ? 'left'
+                : contents.pagePosition == 2
+                ? 'center'
+                : 'right',
+          }"
         ></el-pagination>
       </div>
     </div>
     <!-- 添加/修改页面  将父组件的search方法传递给子组件-->
-    <add-or-update v-if="addOrUpdateFlag" :parent="this" ref="addOrUpdate"></add-or-update>
-
-
-
-
-
+    <add-or-update
+      v-if="addOrUpdateFlag"
+      :parent="this"
+      ref="addOrUpdate"
+    ></add-or-update>
   </div>
 </template>
 <script>
-import axios from 'axios'
+import axios from "axios";
 import AddOrUpdate from "./add-or-update";
 export default {
   data() {
     return {
       searchForm: {
-        key: ""
+        key: "",
       },
-      form:{},
+      form: {},
       dataList: [],
       pageIndex: 1,
       pageSize: 10,
@@ -189,127 +415,246 @@ export default {
       sfshVisiable: false,
       shForm: {},
       chartVisiable: false,
-      addOrUpdateFlag:false,
-      contents:{"searchBtnFontColor":"#333","pagePosition":"1","inputFontSize":"14px","inputBorderRadius":"4px","tableBtnDelFontColor":"#333","tableBtnIconPosition":"1","searchBtnHeight":"40px","tableBgColor":"#f5f5f5","inputIconColor":"#C0C4CC","searchBtnBorderRadius":"4px","tableStripe":true,"btnAdAllWarnFontColor":"#333","tableBtnDelBgColor":"rgba(255, 90, 86, 1)","searchBtnIcon":"1","tableSize":"medium","searchBtnBorderStyle":"solid","tableSelection":true,"text":{"padding":"0","boxShadow":"0 0 6px rgba(0,0,0,.1)","margin":"0 auto","borderColor":"rgba(0,0,0,.3)","backgroundColor":"#f7f7f7","color":"#333","borderRadius":"6px","borderWidth":"0","width":"auto","lineHeight":"64px","fontSize":"24px","borderStyle":"solid"},"searchBtnBorderWidth":"1px","tableContentFontSize":"14px","searchBtnBgColor":"#fff","inputTitleSize":"14px","btnAdAllBorderColor":"#DCDFE6","pageJumper":true,"btnAdAllIconPosition":"1","searchBoxPosition":"1","tableBtnDetailFontColor":"#333","tableBtnHeight":"40px","pagePager":true,"searchBtnBorderColor":"#DCDFE6","tableHeaderFontColor":"#909399","inputTitle":"1","tableBtnBorderRadius":"4px","btnAdAllFont":"1","btnAdAllDelFontColor":"#333","tableBtnIcon":"1","btnAdAllHeight":"40px","btnAdAllWarnBgColor":"rgba(91, 192, 222, 1)","btnAdAllBorderWidth":"1px","tableStripeFontColor":"#606266","tableBtnBorderStyle":"solid","inputHeight":"40px","btnAdAllBorderRadius":"4px","btnAdAllDelBgColor":"rgba(255, 90, 86, 1)","pagePrevNext":true,"btnAdAllAddBgColor":"rgba(66, 139, 202, 1)","searchBtnFont":"1","tableIndex":true,"btnAdAllIcon":"1","tableSortable":true,"pageSizes":true,"tableFit":true,"pageBtnBG":true,"searchBtnFontSize":"14px","tableBtnEditBgColor":"rgba(91, 192, 222, 1)","inputBorderWidth":"1px","box":{"padding":"10px 20px","boxShadow":"0 0 6px rgba(0,0,0,0)","flag":1,"backgroundImage":"","background":"#fff"},"inputFontPosition":"1","inputFontColor":"#333","pageEachNum":10,"tableHeaderBgColor":"#fff","inputTitleColor":"#333","btnAdAllBoxPosition":"1","tableBtnDetailBgColor":"rgba(66, 139, 202, 1)","inputIcon":"1","searchBtnIconPosition":"1","btnAdAllFontSize":"14px","inputBorderStyle":"solid","tableHoverFontColor":"#333","inputBgColor":"#fff","pageStyle":false,"pageTotal":true,"btnAdAllAddFontColor":"#333","tableBtnFont":"1","tableContentFontColor":"#606266","inputBorderColor":"#DCDFE6","tableShowHeader":true,"tableHoverBgColor":"#f5f5f5","tableBtnFontSize":"14px","tableBtnBorderColor":"#DCDFE6","inputIconPosition":"1","tableBorder":true,"btnAdAllBorderStyle":"solid","tableBtnBorderWidth":"1px","tableStripeBgColor":"#F5F7FA","tableBtnEditFontColor":"#333","tableAlign":"center"},
-      layouts: '',
-
-
+      addOrUpdateFlag: false,
+      contents: {
+        searchBtnFontColor: "#333",
+        pagePosition: "1",
+        inputFontSize: "14px",
+        inputBorderRadius: "4px",
+        tableBtnDelFontColor: "#333",
+        tableBtnIconPosition: "1",
+        searchBtnHeight: "40px",
+        tableBgColor: "#f5f5f5",
+        inputIconColor: "#C0C4CC",
+        searchBtnBorderRadius: "4px",
+        tableStripe: true,
+        btnAdAllWarnFontColor: "#333",
+        tableBtnDelBgColor: "rgba(255, 90, 86, 1)",
+        searchBtnIcon: "1",
+        tableSize: "medium",
+        searchBtnBorderStyle: "solid",
+        tableSelection: true,
+        text: {
+          padding: "0",
+          boxShadow: "0 0 6px rgba(0,0,0,.1)",
+          margin: "0 auto",
+          borderColor: "rgba(0,0,0,.3)",
+          backgroundColor: "#f7f7f7",
+          color: "#333",
+          borderRadius: "6px",
+          borderWidth: "0",
+          width: "auto",
+          lineHeight: "64px",
+          fontSize: "24px",
+          borderStyle: "solid",
+        },
+        searchBtnBorderWidth: "1px",
+        tableContentFontSize: "14px",
+        searchBtnBgColor: "#fff",
+        inputTitleSize: "14px",
+        btnAdAllBorderColor: "#DCDFE6",
+        pageJumper: true,
+        btnAdAllIconPosition: "1",
+        searchBoxPosition: "1",
+        tableBtnDetailFontColor: "#333",
+        tableBtnHeight: "40px",
+        pagePager: true,
+        searchBtnBorderColor: "#DCDFE6",
+        tableHeaderFontColor: "#909399",
+        inputTitle: "1",
+        tableBtnBorderRadius: "4px",
+        btnAdAllFont: "1",
+        btnAdAllDelFontColor: "#333",
+        tableBtnIcon: "1",
+        btnAdAllHeight: "40px",
+        btnAdAllWarnBgColor: "rgba(91, 192, 222, 1)",
+        btnAdAllBorderWidth: "1px",
+        tableStripeFontColor: "#606266",
+        tableBtnBorderStyle: "solid",
+        inputHeight: "40px",
+        btnAdAllBorderRadius: "4px",
+        btnAdAllDelBgColor: "rgba(255, 90, 86, 1)",
+        pagePrevNext: true,
+        btnAdAllAddBgColor: "rgba(66, 139, 202, 1)",
+        searchBtnFont: "1",
+        tableIndex: true,
+        btnAdAllIcon: "1",
+        tableSortable: true,
+        pageSizes: true,
+        tableFit: true,
+        pageBtnBG: true,
+        searchBtnFontSize: "14px",
+        tableBtnEditBgColor: "rgba(91, 192, 222, 1)",
+        inputBorderWidth: "1px",
+        box: {
+          padding: "10px 20px",
+          boxShadow: "0 0 6px rgba(0,0,0,0)",
+          flag: 1,
+          backgroundImage: "",
+          background: "#fff",
+        },
+        inputFontPosition: "1",
+        inputFontColor: "#333",
+        pageEachNum: 10,
+        tableHeaderBgColor: "#fff",
+        inputTitleColor: "#333",
+        btnAdAllBoxPosition: "1",
+        tableBtnDetailBgColor: "rgba(66, 139, 202, 1)",
+        inputIcon: "1",
+        searchBtnIconPosition: "1",
+        btnAdAllFontSize: "14px",
+        inputBorderStyle: "solid",
+        tableHoverFontColor: "#333",
+        inputBgColor: "#fff",
+        pageStyle: false,
+        pageTotal: true,
+        btnAdAllAddFontColor: "#333",
+        tableBtnFont: "1",
+        tableContentFontColor: "#606266",
+        inputBorderColor: "#DCDFE6",
+        tableShowHeader: true,
+        tableHoverBgColor: "#f5f5f5",
+        tableBtnFontSize: "14px",
+        tableBtnBorderColor: "#DCDFE6",
+        inputIconPosition: "1",
+        tableBorder: true,
+        btnAdAllBorderStyle: "solid",
+        tableBtnBorderWidth: "1px",
+        tableStripeBgColor: "#F5F7FA",
+        tableBtnEditFontColor: "#333",
+        tableAlign: "center",
+      },
+      layouts: "",
     };
   },
   created() {
     this.init();
     this.getDataList();
-    this.contentStyleChange()
+    this.contentStyleChange();
   },
-  mounted() {
-
-  },
+  mounted() {},
   filters: {
     htmlfilter: function (val) {
-      return val.replace(/<[^>]*>/g).replace(/undefined/g,'');
-    }
+      return val.replace(/<[^>]*>/g).replace(/undefined/g, "");
+    },
   },
   components: {
     AddOrUpdate,
   },
   methods: {
-
     contentStyleChange() {
-      this.contentSearchStyleChange()
-      this.contentBtnAdAllStyleChange()
-      this.contentSearchBtnStyleChange()
-      this.contentTableBtnStyleChange()
-      this.contentPageStyleChange()
+      this.contentSearchStyleChange();
+      this.contentBtnAdAllStyleChange();
+      this.contentSearchBtnStyleChange();
+      this.contentTableBtnStyleChange();
+      this.contentPageStyleChange();
     },
     contentSearchStyleChange() {
-      this.$nextTick(()=>{
-        document.querySelectorAll('.form-content .slt .el-input__inner').forEach(el=>{
-          let textAlign = 'left'
-          if(this.contents.inputFontPosition == 2) textAlign = 'center'
-          if(this.contents.inputFontPosition == 3) textAlign = 'right'
-          el.style.textAlign = textAlign
-          el.style.height = this.contents.inputHeight
-          el.style.lineHeight = this.contents.inputHeight
-          el.style.color = this.contents.inputFontColor
-          el.style.fontSize = this.contents.inputFontSize
-          el.style.borderWidth = this.contents.inputBorderWidth
-          el.style.borderStyle = this.contents.inputBorderStyle
-          el.style.borderColor = this.contents.inputBorderColor
-          el.style.borderRadius = this.contents.inputBorderRadius
-          el.style.backgroundColor = this.contents.inputBgColor
-        })
-        if(this.contents.inputTitle) {
-          document.querySelectorAll('.form-content .slt .el-form-item__label').forEach(el=>{
-            el.style.color = this.contents.inputTitleColor
-            el.style.fontSize = this.contents.inputTitleSize
-            el.style.lineHeight = this.contents.inputHeight
-          })
+      this.$nextTick(() => {
+        document
+          .querySelectorAll(".form-content .slt .el-input__inner")
+          .forEach((el) => {
+            let textAlign = "left";
+            if (this.contents.inputFontPosition == 2) textAlign = "center";
+            if (this.contents.inputFontPosition == 3) textAlign = "right";
+            el.style.textAlign = textAlign;
+            el.style.height = this.contents.inputHeight;
+            el.style.lineHeight = this.contents.inputHeight;
+            el.style.color = this.contents.inputFontColor;
+            el.style.fontSize = this.contents.inputFontSize;
+            el.style.borderWidth = this.contents.inputBorderWidth;
+            el.style.borderStyle = this.contents.inputBorderStyle;
+            el.style.borderColor = this.contents.inputBorderColor;
+            el.style.borderRadius = this.contents.inputBorderRadius;
+            el.style.backgroundColor = this.contents.inputBgColor;
+          });
+        if (this.contents.inputTitle) {
+          document
+            .querySelectorAll(".form-content .slt .el-form-item__label")
+            .forEach((el) => {
+              el.style.color = this.contents.inputTitleColor;
+              el.style.fontSize = this.contents.inputTitleSize;
+              el.style.lineHeight = this.contents.inputHeight;
+            });
         }
-        setTimeout(()=>{
-          document.querySelectorAll('.form-content .slt .el-input__prefix').forEach(el=>{
-            el.style.color = this.contents.inputIconColor
-            el.style.lineHeight = this.contents.inputHeight
-          })
-          document.querySelectorAll('.form-content .slt .el-input__suffix').forEach(el=>{
-            el.style.color = this.contents.inputIconColor
-            el.style.lineHeight = this.contents.inputHeight
-          })
-          document.querySelectorAll('.form-content .slt .el-input__icon').forEach(el=>{
-            el.style.lineHeight = this.contents.inputHeight
-          })
-        },10)
-
-      })
+        setTimeout(() => {
+          document
+            .querySelectorAll(".form-content .slt .el-input__prefix")
+            .forEach((el) => {
+              el.style.color = this.contents.inputIconColor;
+              el.style.lineHeight = this.contents.inputHeight;
+            });
+          document
+            .querySelectorAll(".form-content .slt .el-input__suffix")
+            .forEach((el) => {
+              el.style.color = this.contents.inputIconColor;
+              el.style.lineHeight = this.contents.inputHeight;
+            });
+          document
+            .querySelectorAll(".form-content .slt .el-input__icon")
+            .forEach((el) => {
+              el.style.lineHeight = this.contents.inputHeight;
+            });
+        }, 10);
+      });
     },
     // 搜索按钮
     contentSearchBtnStyleChange() {
-      this.$nextTick(()=>{
-        document.querySelectorAll('.form-content .slt .el-button--success').forEach(el=>{
-          el.style.height = this.contents.searchBtnHeight
-          el.style.color = this.contents.searchBtnFontColor
-          el.style.fontSize = this.contents.searchBtnFontSize
-          el.style.borderWidth = this.contents.searchBtnBorderWidth
-          el.style.borderStyle = this.contents.searchBtnBorderStyle
-          el.style.borderColor = this.contents.searchBtnBorderColor
-          el.style.borderRadius = this.contents.searchBtnBorderRadius
-          el.style.backgroundColor = this.contents.searchBtnBgColor
-        })
-      })
+      this.$nextTick(() => {
+        document
+          .querySelectorAll(".form-content .slt .el-button--success")
+          .forEach((el) => {
+            el.style.height = this.contents.searchBtnHeight;
+            el.style.color = this.contents.searchBtnFontColor;
+            el.style.fontSize = this.contents.searchBtnFontSize;
+            el.style.borderWidth = this.contents.searchBtnBorderWidth;
+            el.style.borderStyle = this.contents.searchBtnBorderStyle;
+            el.style.borderColor = this.contents.searchBtnBorderColor;
+            el.style.borderRadius = this.contents.searchBtnBorderRadius;
+            el.style.backgroundColor = this.contents.searchBtnBgColor;
+          });
+      });
     },
     // 新增、批量删除
     contentBtnAdAllStyleChange() {
-      this.$nextTick(()=>{
-        document.querySelectorAll('.form-content .ad .el-button--success').forEach(el=>{
-          el.style.height = this.contents.btnAdAllHeight
-          el.style.color = this.contents.btnAdAllAddFontColor
-          el.style.fontSize = this.contents.btnAdAllFontSize
-          el.style.borderWidth = this.contents.btnAdAllBorderWidth
-          el.style.borderStyle = this.contents.btnAdAllBorderStyle
-          el.style.borderColor = this.contents.btnAdAllBorderColor
-          el.style.borderRadius = this.contents.btnAdAllBorderRadius
-          el.style.backgroundColor = this.contents.btnAdAllAddBgColor
-        })
-        document.querySelectorAll('.form-content .ad .el-button--danger').forEach(el=>{
-          el.style.height = this.contents.btnAdAllHeight
-          el.style.color = this.contents.btnAdAllDelFontColor
-          el.style.fontSize = this.contents.btnAdAllFontSize
-          el.style.borderWidth = this.contents.btnAdAllBorderWidth
-          el.style.borderStyle = this.contents.btnAdAllBorderStyle
-          el.style.borderColor = this.contents.btnAdAllBorderColor
-          el.style.borderRadius = this.contents.btnAdAllBorderRadius
-          el.style.backgroundColor = this.contents.btnAdAllDelBgColor
-        })
-        document.querySelectorAll('.form-content .ad .el-button--warning').forEach(el=>{
-          el.style.height = this.contents.btnAdAllHeight
-          el.style.color = this.contents.btnAdAllWarnFontColor
-          el.style.fontSize = this.contents.btnAdAllFontSize
-          el.style.borderWidth = this.contents.btnAdAllBorderWidth
-          el.style.borderStyle = this.contents.btnAdAllBorderStyle
-          el.style.borderColor = this.contents.btnAdAllBorderColor
-          el.style.borderRadius = this.contents.btnAdAllBorderRadius
-          el.style.backgroundColor = this.contents.btnAdAllWarnBgColor
-        })
-      })
+      this.$nextTick(() => {
+        document
+          .querySelectorAll(".form-content .ad .el-button--success")
+          .forEach((el) => {
+            el.style.height = this.contents.btnAdAllHeight;
+            el.style.color = this.contents.btnAdAllAddFontColor;
+            el.style.fontSize = this.contents.btnAdAllFontSize;
+            el.style.borderWidth = this.contents.btnAdAllBorderWidth;
+            el.style.borderStyle = this.contents.btnAdAllBorderStyle;
+            el.style.borderColor = this.contents.btnAdAllBorderColor;
+            el.style.borderRadius = this.contents.btnAdAllBorderRadius;
+            el.style.backgroundColor = this.contents.btnAdAllAddBgColor;
+          });
+        document
+          .querySelectorAll(".form-content .ad .el-button--danger")
+          .forEach((el) => {
+            el.style.height = this.contents.btnAdAllHeight;
+            el.style.color = this.contents.btnAdAllDelFontColor;
+            el.style.fontSize = this.contents.btnAdAllFontSize;
+            el.style.borderWidth = this.contents.btnAdAllBorderWidth;
+            el.style.borderStyle = this.contents.btnAdAllBorderStyle;
+            el.style.borderColor = this.contents.btnAdAllBorderColor;
+            el.style.borderRadius = this.contents.btnAdAllBorderRadius;
+            el.style.backgroundColor = this.contents.btnAdAllDelBgColor;
+          });
+        document
+          .querySelectorAll(".form-content .ad .el-button--warning")
+          .forEach((el) => {
+            el.style.height = this.contents.btnAdAllHeight;
+            el.style.color = this.contents.btnAdAllWarnFontColor;
+            el.style.fontSize = this.contents.btnAdAllFontSize;
+            el.style.borderWidth = this.contents.btnAdAllBorderWidth;
+            el.style.borderStyle = this.contents.btnAdAllBorderStyle;
+            el.style.borderColor = this.contents.btnAdAllBorderColor;
+            el.style.borderRadius = this.contents.btnAdAllBorderRadius;
+            el.style.backgroundColor = this.contents.btnAdAllWarnBgColor;
+          });
+      });
     },
     // 表格
     // rowStyle({ row, rowIndex}) {
@@ -330,14 +675,14 @@ export default {
     //     return ''
     //   }
     // },
-    headerRowStyle({ row, rowIndex}){
-      return {color: this.contents.tableHeaderFontColor}
+    headerRowStyle({ row, rowIndex }) {
+      return { color: this.contents.tableHeaderFontColor };
     },
-    headerCellStyle({ row, rowIndex}){
-      return {backgroundColor: this.contents.tableHeaderBgColor}
+    headerCellStyle({ row, rowIndex }) {
+      return { backgroundColor: this.contents.tableHeaderBgColor };
     },
     // 表格按钮
-    contentTableBtnStyleChange(){
+    contentTableBtnStyleChange() {
       // this.$nextTick(()=>{
       //   setTimeout(()=>{
       //     document.querySelectorAll('.table-content .tables .el-table__body .el-button--success').forEach(el=>{
@@ -370,28 +715,26 @@ export default {
       //       el.style.borderRadius = this.contents.tableBtnBorderRadius
       //       el.style.backgroundColor = this.contents.tableBtnDelBgColor
       //     })
-
       //   }, 50)
       // })
     },
     // 分页
-    contentPageStyleChange(){
-      let arr = []
+    contentPageStyleChange() {
+      let arr = [];
 
-      if(this.contents.pageTotal) arr.push('total')
-      if(this.contents.pageSizes) arr.push('sizes')
-      if(this.contents.pagePrevNext){
-        arr.push('prev')
-        if(this.contents.pagePager) arr.push('pager')
-        arr.push('next')
+      if (this.contents.pageTotal) arr.push("total");
+      if (this.contents.pageSizes) arr.push("sizes");
+      if (this.contents.pagePrevNext) {
+        arr.push("prev");
+        if (this.contents.pagePager) arr.push("pager");
+        arr.push("next");
       }
-      if(this.contents.pageJumper) arr.push('jumper')
-      this.layouts = arr.join()
-      this.contents.pageEachNum = 10
+      if (this.contents.pageJumper) arr.push("jumper");
+      this.layouts = arr.join();
+      this.contents.pageEachNum = 10;
     },
 
-    init () {
-    },
+    init() {},
     search() {
       this.pageIndex = 1;
       this.getDataList();
@@ -403,18 +746,24 @@ export default {
       let params = {
         page: this.pageIndex,
         limit: this.pageSize,
-        sort: 'id',
+        sort: "id",
+      };
+      if (
+        this.searchForm.zhanghao != "" &&
+        this.searchForm.zhanghao != undefined
+      ) {
+        params["zhanghao"] = "%" + this.searchForm.zhanghao + "%";
       }
-          if(this.searchForm.zhanghao!='' && this.searchForm.zhanghao!=undefined){
-            params['zhanghao'] = '%' + this.searchForm.zhanghao + '%'
-          }
-          if(this.searchForm.xingming!='' && this.searchForm.xingming!=undefined){
-            params['xingming'] = '%' + this.searchForm.xingming + '%'
-          }
+      if (
+        this.searchForm.xingming != "" &&
+        this.searchForm.xingming != undefined
+      ) {
+        params["xingming"] = "%" + this.searchForm.xingming + "%";
+      }
       this.$http({
         url: "yonghu/page",
         method: "get",
-        params: params
+        params: params,
       }).then(({ data }) => {
         if (data && data.code === 0) {
           this.dataList = data.data.list;
@@ -442,38 +791,38 @@ export default {
       this.dataListSelections = val;
     },
     // 添加/修改
-    addOrUpdateHandler(id,type) {
+    addOrUpdateHandler(id, type) {
       this.showFlag = false;
       this.addOrUpdateFlag = true;
       this.crossAddOrUpdateFlag = false;
-      if(type!='info'){
-        type = 'else';
+      if (type != "info") {
+        type = "else";
       }
       this.$nextTick(() => {
-        this.$refs.addOrUpdate.init(id,type);
+        this.$refs.addOrUpdate.init(id, type);
       });
     },
     // 查看评论
     // 下载
-    download(file){
-      window.open(`${file}`)
+    download(file) {
+      window.open(`${file}`);
     },
     // 删除
     deleteHandler(id) {
       var ids = id
         ? [Number(id)]
-        : this.dataListSelections.map(item => {
+        : this.dataListSelections.map((item) => {
             return Number(item.id);
           });
       this.$confirm(`确定进行[${id ? "删除" : "批量删除"}]操作?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning"
+        type: "warning",
       }).then(() => {
         this.$http({
           url: "yonghu/delete",
           method: "post",
-          data: ids
+          data: ids,
         }).then(({ data }) => {
           if (data && data.code === 0) {
             this.$message({
@@ -482,7 +831,7 @@ export default {
               duration: 1500,
               onClose: () => {
                 this.search();
-              }
+              },
             });
           } else {
             this.$message.error(data.msg);
@@ -490,97 +839,98 @@ export default {
         });
       });
     },
-
-
-  }
-
+  },
 };
 </script>
 <style lang="scss" scoped>
-  .slt {
-    margin: 0 !important;
-    display: flex;
-  }
+.slt {
+  margin: 0 !important;
+  display: flex;
+}
 
-  .ad {
-    margin: 0 !important;
-    display: flex;
-  }
+.ad {
+  margin: 0 !important;
+  display: flex;
+}
 
-  .pages {
-    & /deep/ el-pagination__sizes{
-      & /deep/ el-input__inner {
-        height: 22px;
-        line-height: 22px;
-      }
+.pages {
+  & /deep/ el-pagination__sizes {
+    & /deep/ el-input__inner {
+      height: 22px;
+      line-height: 22px;
     }
   }
-  
+}
 
-  .el-button+.el-button {
-    margin:0;
-  } 
+.el-button + .el-button {
+  margin: 0;
+}
 
-  .tables {
-	& /deep/ .el-button--success {
-		height: 40px;
-		color: #333;
-		font-size: 14px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: #DCDFE6;
-		border-radius: 4px;
-		background-color: rgba(66, 139, 202, 1);
-	}
-	
-	& /deep/ .el-button--primary {
-		height: 40px;
-		color: #333;
-		font-size: 14px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: #DCDFE6;
-		border-radius: 4px;
-		background-color: rgba(91, 192, 222, 1);
-	}
-	
-	& /deep/ .el-button--danger {
-		height: 40px;
-		color: #333;
-		font-size: 14px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: #DCDFE6;
-		border-radius: 4px;
-		background-color: rgba(255, 90, 86, 1);
-	}
+.tables {
+  & /deep/ .el-button--success {
+    background-color: #2c64bd;
+    border-color: #3646f2;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
 
-    & /deep/ .el-button {
-      margin: 4px;
+    &:hover {
+      background-color: #00a884;
+      border-color: #00a884;
     }
   }
-	.form-content {
-		background: transparent;
-	}
-	.table-content {
-		background: transparent;
-	}
-	
-	.tables /deep/ .el-table__body tr {
-				background-color: #f5f5f5 !important;
-				color: #606266 !important;
-	 }
-	.tables /deep/ .el-table__body tr.el-table__row--striped td {
-	    background: transparent;
-	}
-	.tables /deep/ .el-table__body tr.el-table__row--striped {
-		background-color: #F5F7FA !important;
-		color: #606266 !important;
-	}
-	
-	 .tables /deep/ .el-table__body tr:hover>td {
-	   	   background-color: #f5f5f5 !important;
-	   	   	   color: #333 !important;
-	   	 }
-	 
+
+  & /deep/ .el-button--primary {
+    background-color: #83b9fb;
+    border-color: #f7f7fc;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #00a884;
+      border-color: #00a884;
+    }
+  }
+
+  & /deep/ .el-button--danger {
+    background-color: #c20505;
+    border-color: #fafafb;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #00a884;
+      border-color: #00a884;
+    }
+  }
+
+  & /deep/ .el-button {
+    margin: 4px;
+  }
+}
+.form-content {
+  background: transparent;
+}
+.table-content {
+  background: transparent;
+}
+
+.tables /deep/ .el-table__body tr {
+  background-color: #f5f5f5 !important;
+  color: #606266 !important;
+}
+.tables /deep/ .el-table__body tr.el-table__row--striped td {
+  background: transparent;
+}
+.tables /deep/ .el-table__body tr.el-table__row--striped {
+  background-color: #f5f7fa !important;
+  color: #606266 !important;
+}
+
+.tables /deep/ .el-table__body tr:hover > td {
+  background-color: #f5f5f5 !important;
+  color: #333 !important;
+}
 </style>

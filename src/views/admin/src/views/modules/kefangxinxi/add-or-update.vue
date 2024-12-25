@@ -21,7 +21,7 @@
           </el-form-item>
         </div>
       </el-col>
-      <el-col :span="12">
+      <!-- <el-col :span="12">
         <el-form-item class="input" v-if="type!='info'"  label="客房类型" prop="kefangleixing">
           <el-input v-model="ruleForm.kefangleixing" 
               placeholder="客房类型" clearable  :readonly="ro.kefangleixing"></el-input>
@@ -32,7 +32,21 @@
                 placeholder="客房类型" readonly></el-input>
           </el-form-item>
         </div>
-      </el-col>
+      </el-col> -->
+      <el-col :span="12">
+  <el-form-item class="input" v-if="type !== 'info'" label="客房类型" prop="kefangleixing">
+    <el-select v-model="ruleForm.kefangleixing" placeholder="请选择客房类型" clearable :disabled="ro.kefangleixing">
+      <el-option v-for="item in kefangleixingOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+    </el-select>
+  </el-form-item>
+  <div v-else>
+    <el-form-item class="input" label="客房类型" prop="kefangleixing">
+      <el-select v-model="ruleForm.kefangleixing" placeholder="请选择客房类型" disabled>
+        <el-option v-for="item in kefangleixingOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      </el-select>
+    </el-form-item>
+  </div>
+</el-col>
       <el-col :span="12">
         <el-form-item class="input" v-if="type!='info'"  label="客房位置" prop="kefangweizhi">
           <el-input v-model="ruleForm.kefangweizhi" 
@@ -69,47 +83,45 @@
               placeholder="客房价格" clearable  :readonly="ro.kefangjiage"></el-input>
         </el-form-item>
         <div v-else>
+          <!-- readonly只读属性 -->
           <el-form-item class="input" label="客房价格" prop="kefangjiage">
               <el-input v-model="ruleForm.kefangjiage" 
                 placeholder="客房价格" readonly></el-input>
           </el-form-item>
         </div>
       </el-col>
-      <el-col :span="24">  
-        <el-form-item class="upload" v-if="type!='info' && !ro.kefangtupian" label="客房图片" prop="kefangtupian">
-          <file-upload
-          tip="点击上传客房图片"
-          action="file/upload"
-          :limit="3"
-          :multiple="true"
-          :fileUrls="ruleForm.kefangtupian?ruleForm.kefangtupian:''"
-          @change="kefangtupianUploadChange"
-          ></file-upload>
-        </el-form-item>
-        <div v-else>
-          <el-form-item v-if="ruleForm.kefangtupian" label="客房图片" prop="kefangtupian">
-            <img style="margin-right:20px;" v-bind:key="index" v-for="(item,index) in ruleForm.kefangtupian.split(',')" :src="$base.url+item" width="100" height="100">
-          </el-form-item>
-        </div>
-      </el-col>
+
       </el-row>
           <el-row>
-            <el-col :span="24">
-              <el-form-item class="textarea" v-if="type!='info'" label="客房介绍" prop="kefangjieshao">
-                <el-input
-                  style="min-width: 200px; max-width: 600px;"
-                  type="textarea"
-                  :rows="8"
-                  placeholder="客房介绍"
-                  v-model="ruleForm.kefangjieshao" >
-                </el-input>
-              </el-form-item>
-              <div v-else>
-                <el-form-item v-if="ruleForm.kefangjieshao" label="客房介绍" prop="kefangjieshao">
-                    <span>{{ruleForm.kefangjieshao}}</span>
-                </el-form-item>
-              </div>
-            </el-col>
+            <el-col :span="24">  
+  <!-- 当type不是'info'且kefangtupian字段可编辑时，显示上传组件 -->
+  <el-form-item class="upload" v-if="type != 'info' && !ro.kefangtupian" label="客房图片" prop="kefangtupian">
+    <!-- 文件上传组件，用于上传客房图片 -->
+    <file-upload
+      tip="可点击上传客房图片"
+      action="file/upload"
+      :limit="3" 
+      :multiple="true"  
+      :fileUrls="ruleForm.kefangtupian ? ruleForm.kefangtupian : ''"  
+      @change="kefangtupianUploadChange" 
+    ></file-upload>
+  </el-form-item>
+  
+  <!-- 当type为'info'或kefangtupian字段只读时，显示已上传的图片 -->
+  <div v-else>
+    <el-form-item v-if="ruleForm.kefangtupian" label="客房图片" prop="kefangtupian">
+      <!-- 循环渲染已上传的图片 -->
+      <img 
+        style="margin-right:20px;" 
+        v-bind:key="index" 
+        v-for="(item, index) in ruleForm.kefangtupian.split(',')" 
+        :src="$base.url + item"  
+        width="700" 
+        height="490"
+      >
+    </el-form-item>
+  </div>
+</el-col>
           </el-row>
       <el-form-item class="btn">
         <el-button  v-if="type!='info'" type="primary" class="btn-success" @click="onSubmit">提交</el-button>
@@ -203,6 +215,16 @@ export default {
 	kefangjieshao : false,
 	kefangtupian : false,
       },
+      kefangleixingOptions: [
+      { value: '客房类型1', label: '客房类型1' },
+      { value: '客房类型2', label: '客房类型2' },
+      { value: '客房类型3', label: '客房类型3' },
+      { value: '客房类型4', label: '客房类型4' },
+      { value: '客房类型5', label: '客房类型5' },
+      { value: '客房类型6', label: '客房类型6' },
+      { value: '客房类型7', label: '客房类型7' },
+      { value: '客房类型8', label: '客房类型8' }
+    ],
       ruleForm: {
         kefangbianhao: '',
         kefangleixing: '',
@@ -330,18 +352,21 @@ export default {
 
     // 提交
     onSubmit() {
+// 功能：处理表单提交逻辑。
 
+// 主要步骤：
+// 如果 ruleForm.kefangtupian（房间图片）不为空，则去除 URL 中的基地址部分。
 
+// 处理跨表属性更新：
+// 获取存储在本地的跨表对象 (crossObj)。
+// 根据条件更新跨表中的某些字段，并通过 HTTP 请求保存更新。
 
+// 验证表单数据是否合法：
+// 如果验证通过，根据是否有跨表关联 (crossuserid 和 crossrefid) 进行不同操作。
+// 如果有跨表关联，检查相关记录数量是否超过限制，未超过则继续保存或更新房间信息。
+// 如果没有跨表关联，直接保存或更新房间信息。
 
-
-
-
-
-
-
-
-
+// 成功后显示成功消息，并刷新父组件的相关状态。
 
 
 	if(this.ruleForm.kefangtupian!=null) {
@@ -633,6 +658,16 @@ var objcross = this.$storage.getObj('crossObj');
 	background-color: transparent;
 }
 .btn .el-button {
-  padding: 0;
+  background-color: #2c64bd;
+  border-color: #3646f2;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #00a884;
+    border-color: #00a884;
+  }
 }
+
 </style>

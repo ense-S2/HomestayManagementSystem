@@ -18,6 +18,7 @@ import center from '@/views/center'
     import yonghu from '@/views/modules/yonghu/list'
     import xufangxinxi from '@/views/modules/xufangxinxi/list'
     import feiyongxinxi from '@/views/modules/feiyongxinxi/list'
+    import xiaoshouqingkuang from "@/views/modules/xiaoshouqingkuang/list";
 
 
 //2.配置路由   注意：名字
@@ -81,6 +82,11 @@ const routes = [{
 	path: '/feiyongxinxi',
         name: '费用信息',
         component: feiyongxinxi
+      }
+      ,{
+  path: "/xiaoshouqingkuang",
+        name: "销售情况",
+        component: xiaoshouqingkuang
       }
     ]
   },
