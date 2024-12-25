@@ -5,6 +5,8 @@ import menu from './menu';
  * @param {*} key
  */
 export function isAuth(tableName,key) {
+// 判断当前用户是否对指定功能（key）具有操作权限。
+// 权限判断基于当前用户的角色（role），从菜单配置中动态匹配权限。
     let role = storage.get("role");
     if(!role){
         role = '管理员';

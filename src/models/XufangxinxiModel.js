@@ -37,6 +37,12 @@ const XufangxinxiModel = sequelize.define('XufangxinxiModel', {
         },
 		comment: '续住时间'
 	},
+	xuzhutianshu:{
+		type: DataTypes.STRING,
+		defaultValue: 0,
+		allowNull: true,
+		comment: '续住天数'
+	},
 	xuzhubeizhu: {
 		type: DataTypes.STRING,
 		defaultValue: '',

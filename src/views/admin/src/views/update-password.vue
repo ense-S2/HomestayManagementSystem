@@ -34,30 +34,30 @@ export default {
           {
             required: true,
             message: "密码不能为空",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         newpassword: [
           {
             required: true,
             message: "新密码不能为空",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         repassword: [
           {
             required: true,
             message: "确认密码不能为空",
-            trigger: "blur"
-          }
-        ]
-      }
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   mounted() {
     this.$http({
       url: `${this.$storage.get("sessionTable")}/session`,
-      method: "get"
+      method: "get",
     }).then(({ data }) => {
       if (data && data.code === 0) {
         this.user = data.data;
@@ -73,7 +73,7 @@ export default {
     },
     // 修改密码
     onUpdateHandler() {
-      this.$refs["ruleForm"].validate(valid => {
+      this.$refs["ruleForm"].validate((valid) => {
         if (valid) {
           var password = "";
           if (this.user.mima) {
@@ -82,7 +82,7 @@ export default {
             password = this.user.password;
           }
           if (this.ruleForm.password != password) {
-            this.$message.error("原密码错误");
+            this.$message.error("原密码输入错误");
             return;
           }
           if (this.ruleForm.newpassword != this.ruleForm.repassword) {
@@ -94,15 +94,14 @@ export default {
           this.$http({
             url: `${this.$storage.get("sessionTable")}/update`,
             method: "post",
-            data: this.user
+            data: this.user,
           }).then(({ data }) => {
             if (data && data.code === 0) {
               this.$message({
                 message: "修改密码成功,下次登录系统生效",
                 type: "success",
                 duration: 1500,
-                onClose: () => {
-                }
+                onClose: () => {},
               });
             } else {
               this.$message.error(data.msg);
@@ -110,9 +109,24 @@ export default {
           });
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
+
 <style lang="scss" scoped>
+
+// 修改 el-button 的样式
+.el-button {
+  background-color: #2c64bd; 
+  border-color: #3646f2; 
+  color: #fff; 
+  font-size: 14px; 
+  font-weight: bold;
+
+  &:hover {
+    background-color: #00a884; 
+    border-color: #00a884; 
+  }
+}
 </style>

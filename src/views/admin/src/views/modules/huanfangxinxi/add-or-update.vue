@@ -50,7 +50,7 @@
           </el-form-item>
         </div>
       </el-col>
-      <el-col :span="12">
+      <!-- <el-col :span="12">
         <el-form-item class="input" v-if="type!='info'"  label="换房编号" prop="huanfangbianhao">
           <el-input v-model="ruleForm.huanfangbianhao" 
               placeholder="换房编号" clearable  :readonly="ro.huanfangbianhao"></el-input>
@@ -61,7 +61,26 @@
                 placeholder="换房编号" readonly></el-input>
           </el-form-item>
         </div>
-      </el-col>
+      </el-col> -->
+      <el-col :span="12">
+          <el-form-item class="select" v-if="type!='info'" label="换房编号" prop="huanfangbianhao">
+            <el-select v-model="ruleForm.huanfangbianhao" placeholder="请选择换房编号" clearable>
+              <el-option
+                v-for="item in availableKeFangBianHaoOptions"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+              </el-option>
+            </el-select>
+          </el-form-item>
+          <div v-else>
+            <el-form-item class="input" label="换房编号" prop="huanfangbianhao">
+              <el-input v-model="ruleForm.huanfangbianhao" placeholder="换房编号" readonly></el-input>
+            </el-form-item>
+          </div>
+        </el-col>
+      <!-- 下拉选择可预订 -->
+
       <el-col :span="12">
         <el-form-item class="input" v-if="type!='info'"  label="换房原因" prop="huanfangyuanyin">
           <el-input v-model="ruleForm.huanfangyuanyin" 
@@ -124,11 +143,12 @@
 <script>
 // 数字，邮件，手机，url，身份证校验
 import { isNumber,isIntNumer,isEmail,isPhone, isMobile,isURL,checkIdCard } from "@/utils/validate";
+
 export default {
   data() {
-    let self = this
+    let self = this;
     var validateIdCard = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!checkIdCard(value)) {
         callback(new Error("请输入正确的身份证号码"));
@@ -137,7 +157,7 @@ export default {
       }
     };
     var validateUrl = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isURL(value)) {
         callback(new Error("请输入正确的URL地址"));
@@ -146,7 +166,7 @@ export default {
       }
     };
     var validateMobile = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isMobile(value)) {
         callback(new Error("请输入正确的手机号码"));
@@ -155,7 +175,7 @@ export default {
       }
     };
     var validatePhone = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isPhone(value)) {
         callback(new Error("请输入正确的电话号码"));
@@ -164,7 +184,7 @@ export default {
       }
     };
     var validateEmail = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isEmail(value)) {
         callback(new Error("请输入正确的邮箱地址"));
@@ -173,7 +193,7 @@ export default {
       }
     };
     var validateNumber = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isNumber(value)) {
         callback(new Error("请输入数字"));
@@ -182,7 +202,7 @@ export default {
       }
     };
     var validateIntNumber = (rule, value, callback) => {
-      if(!value){
+      if (!value) {
         callback();
       } else if (!isIntNumer(value)) {
         callback(new Error("请输入整数"));
@@ -191,68 +211,128 @@ export default {
       }
     };
     return {
-	  addEditForm: {"btnSaveFontColor":"#fff","selectFontSize":"14px","btnCancelBorderColor":"#DCDFE6","inputBorderRadius":"4px","inputFontSize":"14px","textareaBgColor":"#fff","btnSaveFontSize":"14px","textareaBorderRadius":"4px","uploadBgColor":"#fff","textareaBorderStyle":"solid","btnCancelWidth":"88px","textareaHeight":"120px","dateBgColor":"#fff","btnSaveBorderRadius":"4px","uploadLableFontSize":"14px","textareaBorderWidth":"1px","inputLableColor":"#606266","addEditBoxColor":"rgba(255, 255, 255, 1)","dateIconFontSize":"14px","btnSaveBgColor":"#409EFF","uploadIconFontColor":"#8c939d","textareaBorderColor":"#DCDFE6","btnCancelBgColor":"#ecf5ff","selectLableColor":"#606266","btnSaveBorderStyle":"solid","dateBorderWidth":"1px","dateLableFontSize":"14px","dateBorderRadius":"4px","btnCancelBorderStyle":"solid","selectLableFontSize":"14px","selectBorderStyle":"solid","selectIconFontColor":"#C0C4CC","btnCancelHeight":"44px","inputHeight":"40px","btnCancelFontColor":"#606266","dateBorderColor":"#DCDFE6","dateIconFontColor":"#C0C4CC","uploadBorderStyle":"solid","dateBorderStyle":"solid","dateLableColor":"#606266","dateFontSize":"14px","inputBorderWidth":"1px","uploadIconFontSize":"28px","selectHeight":"40px","inputFontColor":"#606266","uploadHeight":"148px","textareaLableColor":"#606266","textareaLableFontSize":"14px","btnCancelFontSize":"14px","inputBorderStyle":"solid","btnCancelBorderRadius":"4px","inputBgColor":"#fff","inputLableFontSize":"14px","uploadLableColor":"#606266","uploadBorderRadius":"4px","btnSaveHeight":"44px","selectBgColor":"#fff","btnSaveWidth":"88px","selectIconFontSize":"14px","dateHeight":"40px","selectBorderColor":"#DCDFE6","inputBorderColor":"#DCDFE6","uploadBorderColor":"#DCDFE6","textareaFontColor":"#606266","selectBorderWidth":"1px","dateFontColor":"#606266","btnCancelBorderWidth":"1px","uploadBorderWidth":"1px","textareaFontSize":"14px","selectBorderRadius":"4px","selectFontColor":"#606266","btnSaveBorderColor":"#409EFF","btnSaveBorderWidth":"1px"},
-      id: '',
-      type: '',
-      ro:{
-	kefangbianhao : false,
-	kefangleixing : false,
-	huanfangshijian : false,
-	huanfangbianhao : false,
-	huanfangyuanyin : false,
-	zhanghao : false,
-	xingming : false,
-	shouji : false,
-	sfsh : false,
-	shhf : false,
+      addEditForm: {
+        btnSaveFontColor: "#fff",
+        selectFontSize: "14px",
+        btnCancelBorderColor: "#DCDFE6",
+        inputBorderRadius: "4px",
+        inputFontSize: "14px",
+        textareaBgColor: "#fff",
+        btnSaveFontSize: "14px",
+        textareaBorderRadius: "4px",
+        uploadBgColor: "#fff",
+        textareaBorderStyle: "solid",
+        btnCancelWidth: "88px",
+        textareaHeight: "120px",
+        dateBgColor: "#fff",
+        btnSaveBorderRadius: "4px",
+        uploadLableFontSize: "14px",
+        textareaBorderWidth: "1px",
+        inputLableColor: "#606266",
+        addEditBoxColor: "rgba(255, 255, 255, 1)",
+        dateIconFontSize: "14px",
+        btnSaveBgColor: "#409EFF",
+        uploadIconFontColor: "#8c939d",
+        textareaBorderColor: "#DCDFE6",
+        btnCancelBgColor: "#ecf5ff",
+        selectLableColor: "#606266",
+        btnSaveBorderStyle: "solid",
+        dateBorderWidth: "1px",
+        dateLableFontSize: "14px",
+        dateBorderRadius: "4px",
+        btnCancelBorderStyle: "solid",
+        selectLableFontSize: "14px",
+        selectBorderStyle: "solid",
+        selectIconFontColor: "#C0C4CC",
+        btnCancelHeight: "44px",
+        inputHeight: "40px",
+        btnCancelFontColor: "#606266",
+        dateBorderColor: "#DCDFE6",
+        dateIconFontColor: "#C0C4CC",
+        uploadBorderStyle: "solid",
+        dateBorderStyle: "solid",
+        dateLableColor: "#606266",
+        dateFontSize: "14px",
+        inputBorderWidth: "1px",
+        uploadIconFontSize: "28px",
+        selectHeight: "40px",
+        inputFontColor: "#606266",
+        uploadHeight: "148px",
+        textareaLableColor: "#606266",
+        textareaLableFontSize: "14px",
+        btnCancelFontSize: "14px",
+        inputBorderStyle: "solid",
+        btnCancelBorderRadius: "4px",
+        inputBgColor: "#fff",
+        inputLableFontSize: "14px",
+        uploadLableColor: "#606266",
+        uploadBorderRadius: "4px",
+        btnSaveHeight: "44px",
+        selectBgColor: "#fff",
+        btnSaveWidth: "88px",
+        selectIconFontSize: "14px",
+        dateHeight: "40px",
+        selectBorderColor: "#DCDFE6",
+        inputBorderColor: "#DCDFE6",
+        uploadBorderColor: "#DCDFE6",
+        textareaFontColor: "#606266",
+        selectBorderWidth: "1px",
+        dateFontColor: "#606266",
+        btnCancelBorderWidth: "1px",
+        uploadBorderWidth: "1px",
+        textareaFontSize: "14px",
+        selectBorderRadius: "4px",
+        selectFontColor: "#606266",
+        btnSaveBorderColor: "#409EFF",
+        btnSaveBorderWidth: "1px",
+      },
+      id: "",
+      type: "",
+      ro: {
+        kefangbianhao: false,
+        kefangleixing: false,
+        huanfangshijian: false,
+        huanfangbianhao: false,
+        huanfangyuanyin: false,
+        zhanghao: false,
+        xingming: false,
+        shouji: false,
+        sfsh: false,
+        shhf: false,
       },
       ruleForm: {
-        kefangbianhao: '',
-        kefangleixing: '',
-        huanfangshijian: '',
-        huanfangbianhao: '',
-        huanfangyuanyin: '',
-        zhanghao: '',
-        xingming: '',
-        shouji: '',
-        shhf: '',
+        kefangbianhao: "",
+        kefangleixing: "",
+        huanfangshijian: "",
+        huanfangbianhao: "",
+        huanfangyuanyin: "",
+        zhanghao: "",
+        xingming: "",
+        shouji: "",
+        shhf: "",
       },
+      availableKeFangBianHaoOptions: [], // 移动到这里
       rules: {
-          kefangbianhao: [
-          ],
-          kefangleixing: [
-          ],
-          huanfangshijian: [
-          ],
-          huanfangbianhao: [
-          ],
-          huanfangyuanyin: [
-          ],
-          zhanghao: [
-          ],
-          xingming: [
-          ],
-          shouji: [
-                { validator: validateMobile, trigger: 'blur' },
-          ],
-          sfsh: [
-          ],
-          shhf: [
-          ],
-      }
+        kefangbianhao: [],
+        kefangleixing: [],
+        huanfangshijian: [],
+        huanfangbianhao: [],
+        huanfangyuanyin: [],
+        zhanghao: [],
+        xingming: [],
+        shouji: [{ validator: validateMobile, trigger: "blur" }],
+        sfsh: [],
+        shhf: [],
+      },
     };
   },
   props: ["parent"],
-  computed: {
-
-
-
-  },
+  computed: {},
   created() {
-	this.ruleForm.huanfangshijian = this.getCurDateTime()
-
-	this.addEditStyleChange()
-	this.addEditUploadStyleChange()
+    this.ruleForm.huanfangshijian = this.getCurDateTime();
+    this.fetchAvailableKeFangBianHao();
+    this.addEditStyleChange();
+    this.addEditUploadStyleChange();
   },
   methods: {
     // 下载
@@ -355,137 +435,69 @@ export default {
       });
     },
 
-
+  fetchAvailableKeFangBianHao() {
+    this.$http({
+      url: 'kefangxinxi/page', 
+      method: 'get',
+      params: {
+        kefangzhuangtai: '可预订',
+        page: 1, // 第一页
+        limit: 100, // 每页条数，可以根据实际需求调整
+      },
+    }).then(({ data }) => {
+      if (data && data.code === 0) {
+        this.availableKeFangBianHaoOptions = data.data.list
+          .filter(item => item.kefangzhuangtai === '可预订') // 过滤条件
+          .map(item => ({
+            value: item.kefangbianhao,
+            label: item.kefangbianhao,
+          }));
+      } else {
+        this.$message.error(data.msg);
+      }
+    });
+  },
     // 提交
     onSubmit() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var objcross = this.$storage.getObj('crossObj');
-
-      //更新跨表属性
-       var crossuserid;
-       var crossrefid;
-       var crossoptnum;
-       if(this.type=='cross'){
-                var statusColumnName = this.$storage.get('statusColumnName');
-                var statusColumnValue = this.$storage.get('statusColumnValue');
-                if(statusColumnName!='') {
-                        var obj = this.$storage.getObj('crossObj');
-                       if(!statusColumnName.startsWith("[")) {
-                               for (var o in obj){
-                                 if(o==statusColumnName){
-                                   obj[o] = statusColumnValue;
-                                 }
-                               }
-                               var table = this.$storage.get('crossTable');
-                             this.$http({
-                                 url: `${table}/update`,
-                                 method: "post",
-                                 data: obj
-                               }).then(({ data }) => {});
-                       } else {
-                               crossuserid=this.$storage.get('userid');
-                               crossrefid=obj['id'];
-                               crossoptnum=this.$storage.get('statusColumnName');
-                               crossoptnum=crossoptnum.replace(/\[/,"").replace(/\]/,"");
-                        }
-                }
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          // 提交表单数据
+          this.$http({
+            url: `huanfangxinxi/${!this.ruleForm.id ? "save" : "update"}`, // 动态判断是新增还是更新
+            method: "post",
+            data: this.ruleForm, // 提交的表单数据
+          })
+            .then(({ data }) => {
+              if (data && data.code === 0) {
+                // 操作成功提示
+                this.$message({
+                  message: "操作成功",
+                  type: "info",
+                  duration: 1500,
+                  onClose: () => {
+                    // 刷新主页面并关闭弹窗
+                    this.parent.showFlag = true;
+                    this.parent.addOrUpdateFlag = false;
+                    this.parent.huanfangxinxiCrossAddOrUpdateFlag = false;
+                    this.parent.search(); // 刷新列表
+                    this.parent.contentStyleChange(); // 更新样式
+                  },
+                });
+              } else {
+                // 操作失败提示
+                this.$message.error(data.msg || "操作失败");
+              }
+            })
+            .catch((error) => {
+              // 网络或其他错误处理
+              console.error("提交失败:", error);
+              this.$message.error("提交失败，请稍后重试");
+            });
+        } else {
+          // 验证失败提示
+          this.$message.warning("请填写完整信息后再提交");
         }
-       this.$refs["ruleForm"].validate(valid => {
-         if (valid) {
-		 if(crossrefid && crossuserid) {
-			 this.ruleForm.crossuserid = crossuserid;
-			 this.ruleForm.crossrefid = crossrefid;
-			let params = { 
-				page: 1, 
-				limit: 10, 
-				crossuserid:this.ruleForm.crossuserid,
-				crossrefid:this.ruleForm.crossrefid,
-			} 
-			this.$http({ 
-				url: "huanfangxinxi/page", 
-				method: "get", 
-				params: params 
-			}).then(({ 
-				data 
-			}) => { 
-				if (data && data.code === 0) { 
-				       if(data.data.total>=crossoptnum) {
-					     this.$message.error(this.$storage.get('tips'));
-					       return false;
-				       } else {
-					 this.$http({
-					   url: `huanfangxinxi/${!this.ruleForm.id ? "save" : "update"}`,
-					   method: "post",
-					   data: this.ruleForm
-					 }).then(({ data }) => {
-					   if (data && data.code === 0) {
-					     this.$message({
-					       message: "操作成功",
-					       type: "success",
-					       duration: 1500,
-					       onClose: () => {
-						 this.parent.showFlag = true;
-						 this.parent.addOrUpdateFlag = false;
-						 this.parent.huanfangxinxiCrossAddOrUpdateFlag = false;
-						 this.parent.search();
-						 this.parent.contentStyleChange();
-					       }
-					     });
-					   } else {
-					     this.$message.error(data.msg);
-					   }
-					 });
-
-				       }
-				} else { 
-				} 
-			});
-		 } else {
-			 this.$http({
-			   url: `huanfangxinxi/${!this.ruleForm.id ? "save" : "update"}`,
-			   method: "post",
-			   data: this.ruleForm
-			 }).then(({ data }) => {
-			   if (data && data.code === 0) {
-			     this.$message({
-			       message: "操作成功",
-			       type: "success",
-			       duration: 1500,
-			       onClose: () => {
-				 this.parent.showFlag = true;
-				 this.parent.addOrUpdateFlag = false;
-				 this.parent.huanfangxinxiCrossAddOrUpdateFlag = false;
-				 this.parent.search();
-				 this.parent.contentStyleChange();
-			       }
-			     });
-			   } else {
-			     this.$message.error(data.msg);
-			   }
-			 });
-		 }
-         }
-       });
+      });
     },
     // 获取uuid
     getUUID () {

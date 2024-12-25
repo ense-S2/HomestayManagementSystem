@@ -470,7 +470,7 @@ var objcross = this.$storage.getObj('crossObj');
 					   if (data && data.code === 0) {
 					     this.$message({
 					       message: "操作成功",
-					       type: "success",
+					       type: "info",
 					       duration: 1500,
 					       onClose: () => {
 						 this.parent.showFlag = true;
@@ -667,6 +667,7 @@ var objcross = this.$storage.getObj('crossObj');
 };
 </script>
 <style lang="scss">
+
 .editor{
   height: 500px;
   
@@ -691,4 +692,5 @@ var objcross = this.$storage.getObj('crossObj');
 .btn .el-button {
   padding: 0;
 }
+
 </style>

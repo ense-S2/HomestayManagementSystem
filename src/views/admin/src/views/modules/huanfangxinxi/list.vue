@@ -87,7 +87,7 @@
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="kefangbianhao"
                    :header-align="contents.tableAlign"
-		    label="客房编号">
+		    label="编号">
 		     <template slot-scope="scope">
                        {{scope.row.kefangbianhao}}
                      </template>
@@ -103,7 +103,7 @@
                 <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="huanfangshijian"
                    :header-align="contents.tableAlign"
-		    label="换房时间">
+		    label="时间">
 		     <template slot-scope="scope">
                        {{scope.row.huanfangshijian}}
                      </template>
@@ -140,7 +140,7 @@
                        {{scope.row.xingming}}
                      </template>
                 </el-table-column>
-                <el-table-column  :sortable="contents.tableSortable" :align="contents.tableAlign" 
+                <el-table-column  width="120" :sortable="contents.tableSortable" :align="contents.tableAlign" 
                     prop="shouji"
                    :header-align="contents.tableAlign"
 		    label="手机">
@@ -148,11 +148,11 @@
                        {{scope.row.shouji}}
                      </template>
                 </el-table-column>
-              <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
+              <!-- <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
                   prop="shhf"
                  :header-align="contents.tableAlign"
                   label="审核回复">
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column :sortable="contents.tableSortable" :align="contents.tableAlign" 
                   prop="sfsh"
                  :header-align="contents.tableAlign"
@@ -170,7 +170,7 @@
                     <el-button  type="text" icon="el-icon-edit" size="small" @click="shDialog(scope.row)">审核</el-button>
                   </template>
               </el-table-column>
-            <el-table-column width="300" :align="contents.tableAlign" 
+            <el-table-column width="200" :align="contents.tableAlign" 
                :header-align="contents.tableAlign"
                 label="操作">
                 <template slot-scope="scope">
@@ -636,14 +636,16 @@ export default {
 
   .tables {
 	& /deep/ .el-button--success {
-		height: 40px;
-		color: #333;
-		font-size: 14px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: #DCDFE6;
-		border-radius: 4px;
-		background-color: rgba(66, 139, 202, 1);
+    background-color: #2c64bd;
+  border-color: #3646f2;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #00a884;
+    border-color: #00a884;
+  }
 	}
 	
 	& /deep/ .el-button--primary {
@@ -656,17 +658,19 @@ export default {
 		border-radius: 4px;
 		background-color: rgba(91, 192, 222, 1);
 	}
-	
-	& /deep/ .el-button--danger {
-		height: 40px;
-		color: #333;
-		font-size: 14px;
-		border-width: 1px;
-		border-style: solid;
-		border-color: #DCDFE6;
-		border-radius: 4px;
-		background-color: rgba(255, 90, 86, 1);
+  & /deep/ .el-button--danger {
+    background-color: #c20505;
+  border-color: #fafafb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #00a884;
+    border-color: #00a884;
+  }
 	}
+
 
     & /deep/ .el-button {
       margin: 4px;

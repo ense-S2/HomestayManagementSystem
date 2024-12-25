@@ -359,134 +359,45 @@ export default {
 
     // 提交
     onSubmit() {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var objcross = this.$storage.getObj('crossObj');
-
-      //更新跨表属性
-       var crossuserid;
-       var crossrefid;
-       var crossoptnum;
-       if(this.type=='cross'){
-                var statusColumnName = this.$storage.get('statusColumnName');
-                var statusColumnValue = this.$storage.get('statusColumnValue');
-                if(statusColumnName!='') {
-                        var obj = this.$storage.getObj('crossObj');
-                       if(!statusColumnName.startsWith("[")) {
-                               for (var o in obj){
-                                 if(o==statusColumnName){
-                                   obj[o] = statusColumnValue;
-                                 }
-                               }
-                               var table = this.$storage.get('crossTable');
-                             this.$http({
-                                 url: `${table}/update`,
-                                 method: "post",
-                                 data: obj
-                               }).then(({ data }) => {});
-                       } else {
-                               crossuserid=this.$storage.get('userid');
-                               crossrefid=obj['id'];
-                               crossoptnum=this.$storage.get('statusColumnName');
-                               crossoptnum=crossoptnum.replace(/\[/,"").replace(/\]/,"");
-                        }
-                }
+      this.$refs["ruleForm"].validate((valid) => {
+        if (valid) {
+          // 提交表单数据
+          this.$http({
+            url: `huanfangxinxi/${!this.ruleForm.id ? "save" : "update"}`, // 动态判断是新增还是更新
+            method: "post",
+            data: this.ruleForm, // 提交的表单数据
+          })
+            .then(({ data }) => {
+              if (data && data.code === 0) {
+                // 操作成功提示
+                this.$message({
+                  message: "操作成功",
+                  type: "info",
+                  duration: 1500,
+                  onClose: () => {
+                    // 刷新主页面并关闭弹窗
+                    this.parent.showFlag = true;
+                    this.parent.addOrUpdateFlag = false;
+                    this.parent.huanfangxinxiCrossAddOrUpdateFlag = false;
+                    this.parent.search(); // 刷新列表
+                    this.parent.contentStyleChange(); // 更新样式
+                  },
+                });
+              } else {
+                // 操作失败提示
+                this.$message.error(data.msg || "操作失败");
+              }
+            })
+            .catch((error) => {
+              // 网络或其他错误处理
+              console.error("提交失败:", error);
+              this.$message.error("提交失败，请稍后重试");
+            });
+        } else {
+          // 验证失败提示
+          this.$message.warning("请填写完整信息后再提交");
         }
-       this.$refs["ruleForm"].validate(valid => {
-         if (valid) {
-		 if(crossrefid && crossuserid) {
-			 this.ruleForm.crossuserid = crossuserid;
-			 this.ruleForm.crossrefid = crossrefid;
-			let params = { 
-				page: 1, 
-				limit: 10, 
-				crossuserid:this.ruleForm.crossuserid,
-				crossrefid:this.ruleForm.crossrefid,
-			} 
-			this.$http({ 
-				url: "tuifangxinxi/page", 
-				method: "get", 
-				params: params 
-			}).then(({ 
-				data 
-			}) => { 
-				if (data && data.code === 0) { 
-				       if(data.data.total>=crossoptnum) {
-					     this.$message.error(this.$storage.get('tips'));
-					       return false;
-				       } else {
-					 this.$http({
-					   url: `tuifangxinxi/${!this.ruleForm.id ? "save" : "update"}`,
-					   method: "post",
-					   data: this.ruleForm
-					 }).then(({ data }) => {
-					   if (data && data.code === 0) {
-					     this.$message({
-					       message: "操作成功",
-					       type: "success",
-					       duration: 1500,
-					       onClose: () => {
-						 this.parent.showFlag = true;
-						 this.parent.addOrUpdateFlag = false;
-						 this.parent.tuifangxinxiCrossAddOrUpdateFlag = false;
-						 this.parent.search();
-						 this.parent.contentStyleChange();
-					       }
-					     });
-					   } else {
-					     this.$message.error(data.msg);
-					   }
-					 });
-
-				       }
-				} else { 
-				} 
-			});
-		 } else {
-			 this.$http({
-			   url: `tuifangxinxi/${!this.ruleForm.id ? "save" : "update"}`,
-			   method: "post",
-			   data: this.ruleForm
-			 }).then(({ data }) => {
-			   if (data && data.code === 0) {
-			     this.$message({
-			       message: "操作成功",
-			       type: "success",
-			       duration: 1500,
-			       onClose: () => {
-				 this.parent.showFlag = true;
-				 this.parent.addOrUpdateFlag = false;
-				 this.parent.tuifangxinxiCrossAddOrUpdateFlag = false;
-				 this.parent.search();
-				 this.parent.contentStyleChange();
-			       }
-			     });
-			   } else {
-			     this.$message.error(data.msg);
-			   }
-			 });
-		 }
-         }
-       });
+      });
     },
     // 获取uuid
     getUUID () {

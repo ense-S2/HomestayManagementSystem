@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from '@/App.vue'
 // element ui 完全引入
 import ElementUI from 'element-ui'
+import { Message } from "element-ui";
 import '@/assets/css/element-variables.scss'
 import '@/assets/css/style.scss'
 // 加载路由
@@ -49,6 +50,7 @@ VueAMap.initAMapApiLoader({
   // 默认高德 sdk 版本为 1.4.4
   v: '1.4.4'
 })
+Vue.prototype.$message = Message
 Vue.prototype.$validate = validate
 Vue.prototype.$http = http // ajax请求方法
 Vue.prototype.$echarts = echarts
